@@ -1,26 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-class HelloWorld extends React.Component {
-  render() {
-    return <div>Hello World!</div>;
-  }
-}
+import PostIndex from './components/PostIndex';
 
-class GoodBye extends React.Component {
-  render() {
-    return <div>Good Bye!</div>;
-  }
-}
 
 ReactDOM.render(
   <BrowserRouter>
-    <div>      
-      <Route path='/hi' component={ HelloWorld } />
-      <Route path='/bye' component={ GoodBye } />
+    <div>            
+      <Route path='/' component={ PostIndex } />
     </div>
   </BrowserRouter>, 
   document.getElementById('root'));
