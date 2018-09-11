@@ -4,13 +4,27 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostNew extends Component {
 
-  renderTitleField(field) {
+  renderField(field) {
     return (
-      <div>
+      <div className='form-group'>
+        <label>{ field.label }</label>
         <input
+          className='form-control'
           type='text'
           {...field.input}>
         </input>
+      </div>
+    );
+  }
+
+  renderTextAreaField(field) {
+    return (
+      <div className='form-group'>
+        <label>{ field.label }</label>
+        <textarea
+          className='form-control'>
+
+        </textarea>
       </div>
     );
   }
@@ -19,9 +33,21 @@ class PostNew extends Component {
     return (
       <form>
         <Field
+          label='Title'
           name='title'
-          component={ this.renderTitleField } >
+          component={ this.renderField } >
+        </Field>
 
+        <Field
+          label='Categories'
+          name='categories'
+          component={ this.renderField } >
+        </Field>
+
+        <Field
+          label='Post Content'
+          name='content'
+          component={ this.renderTextAreaField } >
         </Field>
       </form>
     );
