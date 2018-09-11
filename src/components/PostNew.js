@@ -13,6 +13,7 @@ class PostNew extends Component {
           type='text'
           {...field.input}>
         </input>
+        { field.meta.error }
       </div>
     );
   }
@@ -21,10 +22,9 @@ class PostNew extends Component {
     return (
       <div className='form-group'>
         <label>{ field.label }</label>
-        <textarea
-          className='form-control'>
-
+        <textarea className='form-control'>
         </textarea>
+        { field.meta.error }
       </div>
     );
   }
