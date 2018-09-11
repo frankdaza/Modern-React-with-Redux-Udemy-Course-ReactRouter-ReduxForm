@@ -8,12 +8,12 @@ class PostNew extends Component {
     return (
       <div className='form-group'>
         <label>{ field.label }</label>
-        <input
+        <input required
           className='form-control'
           type='text'
           {...field.input}>
         </input>
-        { field.meta.error }
+        { field.meta.touched ? field.meta.error : '' }
       </div>
     );
   }
@@ -22,17 +22,23 @@ class PostNew extends Component {
     return (
       <div className='form-group'>
         <label>{ field.label }</label>
-        <textarea className='form-control'>
+        <textarea className='form-control' required>
         </textarea>
-        { field.meta.error }
+        { field.meta.touched ? field.meta.error : '' }
       </div>
     );
   }
 
+  onSubmit(values) {
+    console.log(values);
+  }
+
   render() {
+    const { handleSubmit } = this.props; 
+
     return (
-      <form>
-        <Field
+      <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+        <Field 
           label='Title'
           name='title'
           component={ this.renderField } >
@@ -49,6 +55,8 @@ class PostNew extends Component {
           name='content'
           component={ this.renderTextAreaField } >
         </Field>
+
+        <button type='submit' className='btn btn-primary'>Submit</button>
       </form>
     );
   }
