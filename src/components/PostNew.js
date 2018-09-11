@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { createPost } from '../actions/index';
 
 
 class PostNew extends Component {
@@ -8,12 +12,15 @@ class PostNew extends Component {
     return (
       <div className='form-group'>
         <label>{ field.label }</label>
-        <input required
+        <input
           className='form-control'
           type='text'
           {...field.input}>
         </input>
-        { field.meta.touched ? field.meta.error : '' }
+
+        <div className='text-danger'>
+          { field.meta.touched ? field.meta.error : '' }
+        </div>
       </div>
     );
   }
@@ -22,15 +29,14 @@ class PostNew extends Component {
     return (
       <div className='form-group'>
         <label>{ field.label }</label>
-        <textarea className='form-control' required>
-        </textarea>
-        { field.meta.touched ? field.meta.error : '' }
+        <textarea className='form-control'>
+        </textarea>       
       </div>
     );
   }
 
   onSubmit(values) {
-    console.log(values);
+    this.props.createPost(values);
   }
 
   render() {
@@ -57,6 +63,7 @@ class PostNew extends Component {
         </Field>
 
         <button type='submit' className='btn btn-primary'>Submit</button>
+        <Link to='/' className='btn btn-danger'>Cancel</Link>
       </form>
     );
   }
@@ -74,9 +81,6 @@ function validate(values) {
     errors.categories = 'Enter some categories';
   }
 
-  if (!values.content) {
-    errors.content = 'Enter some content please!';
-  }
   
   // If errors is empty, the form is fine to submit
   // If errors has *any* properties, redux form assumes form is invalid 
@@ -87,4 +91,6 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'PostNewForm'
-})(PostNew);
+})(
+  connect(null, { createPost })(PostNew)
+);
